@@ -11,6 +11,7 @@ git clone https://github.com/patrickgilsf/q-sys-ide-importer.git
 ```
 
 Install dependencies
+
 ```bash
 git install
 ```
@@ -45,6 +46,12 @@ If your core is authenticated, create a file called `.env` at the root of the re
 QSysUN="TestUser"
 QSysPin=1234
 ```
+
+## Write your code
+
+Write your control code in `/lua/import.lua`
+> [!WARNING]
+> Make sure you have a control for every instance of `Controls.control` in your code
 
 ## Uploading Data
 
