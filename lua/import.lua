@@ -1,2 +1,4 @@
-print("testing 1 2 3 4...")
+Controls.Fader.EventHandler = function(c)
+  print(c.Value)
+end
  
