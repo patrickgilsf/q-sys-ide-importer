@@ -10,6 +10,11 @@ Install NodeJS, then:
 git clone https://github.com/patrickgilsf/q-sys-ide-importer.git
 ```
 
+Install dependencies
+```bash
+git install
+```
+
 ### Setup your `init.json` file in `/lib/init.json`
 
 ```js
@@ -21,7 +26,8 @@ git clone https://github.com/patrickgilsf/q-sys-ide-importer.git
 
 ### Setup your Q-Sys file
 
-`init.json` has a `component` property that needs to align with text controller/UCI, and "Script Access" has to be set to "All", or "External":
+`init.json` has a `component` property that needs to match the text controller/UCI you are trying to write code for, and "Script Access" has to be set to "All", or "External":
+
 ![Type Test](img/import_properties.png)
 
 ## Authentication
@@ -33,7 +39,7 @@ Your Q-Sys core might be hardened with authentication for QRC.
 Authentication is performed in Q-Sys Administator:
 ![Image](img/qsys-admin.png)
 
-If your core is authenticated, add these credentials to your .env file
+If your core is authenticated, create a file called `.env` at the root of the repo, and add these credentials to the file
 
 ```js
 QSysUN="TestUser"
