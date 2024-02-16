@@ -27,13 +27,13 @@ const login = () => {
   false;
 };
 
-const addCode = (code) => {
+const addCode = (code, comp) => {
   return JSON.stringify({
     "jsonrpc": "2.0",
     "id": 1234,
     "method": "Component.Set", 
     "params": {
-      "Name": init.component,
+      "Name": comp,
       "Controls": [
         {
           "Name": "code", 
@@ -47,39 +47,46 @@ const addCode = (code) => {
 
 const main = async () => {
 
-  //read lua from "../lua/Import.lua"
-  fs.readFile("./lua/import.lua", "utf-8", (err, data) => {
+  //iterate through the named files
+  console.log(`There are ${init.length} files to update...`);
 
-    if (err) {
-      console.log(`Error importing Import.lua with error: ${err}`)
-    } else {
+  //open net connection
+  let client = new net.Socket();
 
-      //open up connection to Q-Sys core
-      let client = new net.Socket();
-      client.connect(1710, init.coreIP, async () => {
+  //connect to core
+  client.connect(1710, init.ip, async () => {
 
-        //login, if you have credentials in .env file
-        login() ? client.write(login() + nt) : null;
+    //use login data to confirm login
+    login() ? client.write(login() + nt) : console.log(`${init.name} is not authenticated`);
+    
+    //iterate through init.json
+    init.imports.forEach((i) => {
 
-        //upload data to text controller
-        client.write(addCode(data) + nt);
-
-        //print feedback
-        client.on('data', (d) => {
-          console.log(`Received data from QRC API: ${d}`);
-        });
-
-        //close if server closes
-        client.on('close', function() {
-          console.log('Connection closed');
-          client.end();
-        });
-
-        //close automatically after 3 seconds
-        await timeoutPromise(3000);
-        client.end();
+      fs.readFile(`./lua/${i.file}`, "utf-8", (err, data) => {
+        
+        //handle file errors
+        if (err) {
+          console.log(`Error importing ${i.file} with error: ${err}`)
+        } else {
+          //add code here
+          client.write(addCode(data, i.comp) + nt);
+        }
       })
-    }
+    });
+
+    //print feedback
+    client.on('data', (d) => {
+      console.log(`Received data from QRC API: ${d}`);
+    });
+
+    client.on('close', () => {
+      console.log('client closed');
+      client.end();
+    });
+
+    //close socket automatically
+    await timeoutPromise(3000);
+    client.end();
   })
 }
 

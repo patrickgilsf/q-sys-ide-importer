@@ -20,8 +20,11 @@ git install
 
 ```js
 {
-  "component": "", //add the name of your component in the Q-Sys file
-  "coreIP": "" //add the ip address of the core you are adding code to
+  "name": "Insert name here", //name of your program
+  "ip": "", //ip address of your core
+  "imports": [ //array of objects, file is the file name is "../lua/<file name>", comp is the component in the design
+    {"file": "import.lua", "comp": "Import"}
+  ]
 }
 ```
 
@@ -49,7 +52,7 @@ QSysPin=1234
 
 ## Write your code
 
-Write your control code in `/lua/import.lua`
+Write your control code in `/lua/<file name>.lua`file name must correspond in `init.json/imports.file` 
 > [!WARNING]
 > Make sure you have a control for every instance of `Controls.control` in your code
 

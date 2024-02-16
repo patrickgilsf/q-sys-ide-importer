@@ -1,5 +1,7 @@
 {
-  "component": "Import",
-  "coreIP": ""
+  "name": "Insert name here",
+  "ip": "",
+  "imports": [
+    {"file": "import.lua", "comp": "Import"}
+  ]
 }
-
