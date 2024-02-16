@@ -52,7 +52,7 @@ QSysPin=1234
 
 ## Write your code
 
-Write your control code in `/lua/<file name>.lua`file name must correspond in `init.json/imports.file` 
+Write your control code in `/lua/<file name>.lua`file name must correspond in `init.json/imports.file`
 > [!WARNING]
 > Make sure you have a control for every instance of `Controls.control` in your code
 
@@ -62,12 +62,16 @@ Once your environment is set up properly, open a command line at the root of the
 
 ```js
 node app
+//or
+npm start
 ```
 
 OR you can have it auto run on every save, with
 
 ```js
 nodemon app
+//or
+npm test
 ```
 
 ## Contributions and issues
